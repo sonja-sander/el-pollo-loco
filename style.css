@@ -1,0 +1,410 @@
+/* #region Fonts */
+@font-face {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url(./assets/fonts/outfit-regular.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Indie Flower";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./assets/fonts/indie-flower-regular.woff2) format("woff2");
+}
+/* #endregion */
+
+/* #region General */
+* {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    scroll-behavior: smooth;
+}
+
+html {
+    font-size: 10px;
+
+    @media (min-width: 750px) {
+        font-size: 11px;
+    }
+}
+
+button {
+    font-family: "Indie Flower", sans-serif;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+/* #endregion */
+
+/* #region Body and main */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    font-size: 16px;
+    background: url("./assets/img/10_website-background/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: "Indie Flower", sans-serif;
+    color: white;
+
+    @media (hover: none) and (orientation: portrait) {
+        background: url("./assets/img/10_website-background/portrait-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    @media (hover: none) and (orientation: landscape) {
+        background: url("./assets/img/10_website-background/landscape-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* #endregion */
+
+/* #region Homepage */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #region Canvas */
+.canvas-wrapper {
+    display: flex;
+    align-items: flex-end;
+    /* gap: 0.8rem; */
+    width: 100%;
+
+    @media (hover: none) and (orientation: portrait) {
+        justify-content: center;
+        display: none;
+    }
+}
+
+.fullscreen:fullscreen canvas {
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    background: black;
+    border: 3px solid white;
+    border-radius: 1.6rem;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.5),
+        0 6px 20px 0 rgba(255, 255, 255, 0.5);
+
+    @media (max-width: 720px) {
+        width: 100%;
+    }
+
+    @media (hover: none) and (orientation: landscape) {
+        height: 100dvh;
+        margin: 0;
+        border: 2px solid white;
+        border-radius: 0.8rem;
+    }
+}
+
+/* #region Canvas overlay option buttons (mute and fullscreen) */
+.option-btns-container {
+    display: flex;
+    gap: 0.8rem;
+    position: absolute;
+    top: 1.6rem;
+    right: 2rem;
+}
+
+.option-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c76758;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: #a0220a;
+    }
+}
+/* #endregion */
+/* #endregion */
+
+/* #region Mobile control buttons */
+.mobile-control-btns-left,
+.mobile-control-btns-right {
+    display: none;
+
+    @media (hover: none) and (orientation: landscape) {
+        display: flex;
+    }
+}
+
+.mobile-control-btns-left {
+    gap: 0.8rem;
+}
+
+.mobile-control-btns-right {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.4rem;
+}
+
+.mobile-control-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    height: 5rem;
+    width: 5rem;
+    margin-bottom: 0.4rem;
+    border-radius: 50%;
+    border: 1px solid #5b1406;
+    background-image: linear-gradient(to bottom, #a0220a, #c76758);
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.35),
+        inset 0px 4px 2px rgba(255, 255, 255, 0.25),
+        inset 0px -4px 2px rgba(40, 5, 2, 0.8);
+
+    img {
+        height: 3rem;
+        width: 3rem;
+    }
+}
+/* #endregion */
+
+/* #region Game info */
+.game-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    width: 100%;
+
+    @media (hover: none) and (orientation: landscape) {
+        display: none;
+    }
+
+    @media (hover: none) and (orientation: portrait) {
+        flex-direction: column;
+        gap: 2rem;
+        height: 100%;
+    }
+}
+
+.rotate-phone-msg {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+
+    p {
+        font-size: 5rem;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 1px 1px 2px gray;
+        color: #a0220a;
+    }
+
+    .rotate-img {
+        width: 60%;
+    }
+
+    @media (hover: none) and (orientation: portrait) {
+        display: flex;
+    }
+}
+
+.instructions {
+    display: flex;
+    gap: 1.6rem;
+    width: 100%;
+    justify-content: space-around;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-top: 1.6rem;
+
+    @media (hover: none) and (orientation: portrait) {
+        flex-direction: column;
+        text-align: center;
+        gap: 0;
+    }
+}
+/* #endregion */
+
+/* #region Game navigation buttons */
+.game-btns-container {
+    display: flex;
+    gap: 0.8rem;
+
+    @media (hover: none) and (orientation: landscape) {
+        position: fixed;
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    @media (hover: none) and (orientation: portrait) {
+        display: none;
+    }
+}
+
+.game-btn {
+    background-color: white;
+    color: #a0220a;
+    border: 3px solid #a0220a;
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 1.6rem;
+    margin-top: 1.6rem;
+
+    &:hover {
+        background-color: #a0220a;
+        color: white;
+    }
+
+    @media (hover: none) and (orientation: landscape) {
+        box-shadow: none;
+        font-size: 2rem;
+        padding: 0 1rem;
+        width: 15rem;
+    }
+}
+/* #endregion */
+/* #endregion */
+
+/* #region Footer */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    width: 100%;
+    font-family: "Outfit", sans-serif;
+    color: white;
+
+    @media (max-width: 400px) {
+        height: 13rem;
+    }
+
+    @media (hover: none) and (orientation: landscape) {
+        display: none;
+    }
+
+    ul {
+        display: flex;
+        gap: 1.6rem;
+        list-style: none;
+
+        @media (max-width: 400px) {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.8rem;
+        }
+
+        li {
+            a {
+                color: #a0220a;
+                font-weight: 500;
+
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region Legal pages */
+.legal-page-body {
+    background: none;
+    color: black;
+    font-family: "Outfit", sans-serif;
+}
+
+.legal-page-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.legal-page-article {
+    width: 80%;
+    max-width: 1440px;
+    text-align: left;
+    padding: 5rem 0;
+    hyphens: auto;
+    overflow-wrap: break-word;
+
+    @media (max-width: 400px) {
+        width: 90%;
+        padding: 4rem 0;
+    }
+    a {
+        color: #ffa500;
+        font-weight: bold;
+
+        &:hover {
+            color: #d1982f;
+        }
+    }
+    h1 {
+        padding: 0 0 16px;
+    }
+    h2 {
+        margin: 24px 0 0;
+        padding: 0;
+    }
+    h3,
+    h4 {
+        margin-top: 16px;
+        padding: 0;
+    }
+    ul {
+        padding-left: 24px;
+    }
+    p {
+        margin-top: 8px;
+    }
+}
+
+.legal-page-footer {
+    a {
+        color: black;
+    }
+}
+/* #endregion */
+
+/* #region Classes for JS */
+.d-none {
+    display: none;
+}
+/* #endregion */

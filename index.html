@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png" type="image/x-icon">
+    <title>El Pollo Loco</title>
+</head>
+<body>
+    <main>
+        <div class="content-wrapper">
+            <article class="canvas-wrapper">
+                <div id="mobile-control-btns-left" class="mobile-control-btns-left">
+                    <button id="mobile-btn-left" class="mobile-control-btn"><img src="./assets/icons/left.svg" alt=""></button>
+                    <button id="mobile-btn-right" class="mobile-control-btn"><img src="./assets/icons/right.svg" alt=""></button>
+                </div>
+                <div id="fullscreen" class="fullscreen">
+                    <canvas id="game-canvas" height="480" width="720"></canvas>
+                    <div id="option-btns-container" class="option-btns-container">
+                        <button id="mute-btn" class="option-btn"><img src="./assets/icons/volume-off.svg" alt="Volume off icon"></button>
+                        <button id="unmute-btn" class="option-btn d-none"><img src="./assets/icons/volume-up.svg" alt="Volume up icon"></button>
+                        <button id="enter-fullscreen-btn" class="option-btn"><img src="./assets/icons/fullscreen.svg" alt="Fullscreen icon"></button>
+                        <button id="exit-fullscreen-btn" class="option-btn d-none"><img src="./assets/icons/fullscreen-exit.svg" alt="Exit fullscreen icon"></button>
+                    </div>
+                </div>
+                <div id="mobile-control-btns-right" class="mobile-control-btns-right">
+                    <button id="mobile-btn-bottle" class="mobile-control-btn"><img src="./assets/icons/bottle.svg" alt=""></button>
+                    <button id="mobile-btn-jump" class="mobile-control-btn"><img src="./assets/icons/up.svg" alt=""></button>
+                </div>
+            </article>
+            
+            <div class="game-info">
+                <div class="rotate-phone-msg">
+                    <p>Please rotate <br> your device</p>
+                    <img class="rotate-img" src="./assets/img/10_website-background/turn-phone-white.png" alt="">
+                </div>
+                <div id="instructions" class="instructions">
+                    <p>How to Play:</p>
+                    <p>Arrow Left/Right = Walk,</p>
+                    <p>Space = Jump,</p>
+                    <p>D = Throw Bottle</p>
+                </div>
+            </div>
+
+            <div class="game-btns-container">
+                <button id="start-game-btn" class="game-btn">Start Game</button>
+                <button id="next-level-btn" class="game-btn d-none">Go to next level</button>
+                <button id="restart-game-btn" class="game-btn d-none">Restart Game</button>
+                <button id="back-to-home-btn" class="game-btn d-none">Back to Home</button>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./legal/imprint.html">Impressum</a></li>
+                <li><a href="./legal/data-protection.html">Datenschutzerklärung</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script type="module" src="./scripts/game.js"></script>
+</body>
+</html>
