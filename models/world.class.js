@@ -253,7 +253,7 @@ export class World {
     }
 
     checkGameOver(){
-        if(this.character.isDead && !this.character.isHurt()){
+        if(this.character.isDead){
             this.endGameIfLost();
             return;
         }
