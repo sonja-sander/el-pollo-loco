@@ -1,82 +1,175 @@
+/**
+ * Static keyboard and touch input handler for the game.
+ * Tracks pressed keys for both desktop and mobile controls.
+ * @class
+ */
 export class Keyboard {
     // #region Attributes
-    static SPACE = false; // key: " "
-    static LEFT = false; // key: 'ArrowLeft'
-    static RIGHT = false; // key: 'ArrowRight'
-    static D = false; // key: 'KeyD'
+    static SPACE = false; 
+    static LEFT = false; 
+    static RIGHT = false;
+    static D = false; 
     // #endregion
 
-    constructor() {}
-
     // #region Methods
+
+    /**
+     * Sets up keyboard listeners for desktop controls.
+     * Delegates to {@link Keyboard.getKeydownEvents} and {@link Keyboard.getKeyupEvents}.
+     *
+     * @static
+     * @returns {void}
+     */
     static setControls(){
         window.addEventListener("keydown", (event) => {
-            // console.log(event); 
-            if(event.key === " "){
-                Keyboard.SPACE = true;
-            }
-            if(event.key === "ArrowLeft"){
-                Keyboard.LEFT = true;
-            }
-            if(event.key === "ArrowRight"){
-                Keyboard.RIGHT = true;
-            }
-            if(event.code === "KeyD"){
-                Keyboard.D = true;
-            }
+            Keyboard.getKeydownEvents(event);
         });
 
         window.addEventListener("keyup", (event) => {
-            // console.log(event); 
-            if(event.key === " "){
-                Keyboard.SPACE = false;
-            }
-            if(event.key === "ArrowLeft"){
-                Keyboard.LEFT = false;
-            }
-            if(event.key === "ArrowRight"){
-                Keyboard.RIGHT = false;
-            }
-            if(event.code === "KeyD"){
-                Keyboard.D = false;
-            }
+            Keyboard.getKeyupEvents(event);
         });
     }
 
+    /**
+     * Handles keydown events and updates the corresponding
+     * static flags (SPACE, LEFT, RIGHT, D).
+     *
+     * @static
+     * @param {KeyboardEvent} e - The keydown event.
+     * @returns {void}
+     */
+    static getKeydownEvents(e){
+        if(e.key === " "){
+            Keyboard.SPACE = true;
+        }
+        if(e.key === "ArrowLeft"){
+            Keyboard.LEFT = true;
+        }
+        if(e.key === "ArrowRight"){
+            Keyboard.RIGHT = true;
+        }
+        if(e.code === "KeyD"){
+            Keyboard.D = true;
+        }
+    }
+
+    /**
+     * Handles keyup events and resets the corresponding
+     * static flags (SPACE, LEFT, RIGHT, D).
+     *
+     * @static
+     * @param {KeyboardEvent} e - The keyup event.
+     * @returns {void}
+     */
+    static getKeyupEvents(e){
+        if(e.key === " "){
+            Keyboard.SPACE = false;
+        }
+        if(e.key === "ArrowLeft"){
+            Keyboard.LEFT = false;
+        }
+        if(e.key === "ArrowRight"){
+            Keyboard.RIGHT = false;
+        }
+        if(e.code === "KeyD"){
+            Keyboard.D = false;
+        }
+    }
+
+    /**
+     * Sets up touch controls for mobile by binding handlers
+     * to the on-screen control buttons and disabling the context menu.
+     *
+     * @static
+     * @returns {void}
+     */
     static setMobileControls(){
         const mobileBtnLeft = document.getElementById("mobile-btn-left");
         const mobileBtnRight = document.getElementById("mobile-btn-right");
         const mobileBtnBottle = document.getElementById("mobile-btn-bottle");
         const mobileBtnJump = document.getElementById("mobile-btn-jump");
 
-        mobileBtnLeft.addEventListener("touchstart", () => {
+        Keyboard.getMobileLeft(mobileBtnLeft);
+        Keyboard.getMobileRight(mobileBtnRight);
+        Keyboard.getMobileBottle(mobileBtnBottle);
+        Keyboard.getMobileJump(mobileBtnJump);
+        Keyboard.preventContextMenu();
+    }
+
+    /**
+     * Binds touch controls for moving left to the given button element.
+     *
+     * @static
+     * @param {HTMLElement} btnLeft - The left movement button element.
+     * @returns {void}
+     */
+    static getMobileLeft(btnLeft){
+        btnLeft.addEventListener("touchstart", () => {
             Keyboard.LEFT = true;
         });
-        mobileBtnLeft.addEventListener("touchend", () => {
+        btnLeft.addEventListener("touchend", () => {
             Keyboard.LEFT = false;
         });
-        
-        mobileBtnRight.addEventListener("touchstart", () => {
+    }
+
+    /**
+     * Binds touch controls for moving right to the given button element.
+     *
+     * @static
+     * @param {HTMLElement} btnRight - The right movement button element.
+     * @returns {void}
+     */
+    static getMobileRight(btnRight){
+        btnRight.addEventListener("touchstart", () => {
             Keyboard.RIGHT = true;
         });
-        mobileBtnRight.addEventListener("touchend", () => {
+        btnRight.addEventListener("touchend", () => {
             Keyboard.RIGHT = false;
         });
-        
-        mobileBtnBottle.addEventListener("touchstart", () => {
+    }
+
+    /**
+     * Binds touch controls for throwing a bottle (D action)
+     * to the given button element.
+     *
+     * @static
+     * @param {HTMLElement} btnBottle - The bottle action button element.
+     * @returns {void}
+     */
+    static getMobileBottle(btnBottle){
+        btnBottle.addEventListener("touchstart", () => {
             Keyboard.D = true;
         });
-        mobileBtnBottle.addEventListener("touchend", () => {
+        btnBottle.addEventListener("touchend", () => {
             Keyboard.D = false;
         });
-        
-        mobileBtnJump.addEventListener("touchstart", () => {
+    }
+
+    /**
+     * Binds touch controls for jumping (SPACE action)
+     * to the given button element.
+     *
+     * @static
+     * @param {HTMLElement} btnJump - The jump button element.
+     * @returns {void}
+     */
+    static getMobileJump(btnJump){
+        btnJump.addEventListener("touchstart", () => {
             Keyboard.SPACE = true;
         });
-        mobileBtnJump.addEventListener("touchend", () => {
+        btnJump.addEventListener("touchend", () => {
             Keyboard.SPACE = false;
         });
+    }
 
+    /**
+     * Prevents the default context menu from appearing
+     * (useful on mobile long-press).
+     *
+     * @static
+     * @returns {void}
+     */
+    static preventContextMenu(){
         window.addEventListener("contextmenu", (event) => {
             event.preventDefault();
         });

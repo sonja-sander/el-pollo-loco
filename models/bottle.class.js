@@ -2,6 +2,12 @@ import { CollectibleObject } from "./collectible-object.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 
+/**
+ * Collectible salsa bottle lying on the ground
+ * that can be picked up by the character.
+ * @class
+ * @extends CollectibleObject
+ */
 export class Bottle extends CollectibleObject{
     // #region Attributes
     x;
@@ -16,13 +22,17 @@ export class Bottle extends CollectibleObject{
     type = "bottle";
     // #endregion
 
-    constructor({_x}){
+    /**
+     * Creates a new bottle at the given x-position
+     * and starts updating its real frame for collision.
+     *
+     * @constructor
+     * @param {number} _x - Initial x-position of the bottle.
+     */
+    constructor(_x){
         super();
         this.x = _x;
         this.loadImage(ImageHub.salsaBottle.onGround[1]);
         IntervalHub.startInterval(this.getRealFrame, 1000/60);
     }
-
-    // #region Methods
-    // #endregion
 }

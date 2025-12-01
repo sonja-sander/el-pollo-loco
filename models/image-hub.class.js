@@ -1,3 +1,9 @@
+/**
+ * Central hub for all image asset paths used in the game.
+ * Groups character, enemies, background, items, status bars and UI images.
+ * This class only serves as a static container and is not meant to be instantiated.
+ * @class
+ */
 export class ImageHub{
     // #region Attributes
     static character = {
@@ -217,8 +223,5 @@ export class ImageHub{
             "./assets/img/You won, you lost/You won A.png"
         ]
     };
-    // #endregion
-
-    // #region Methods
     // #endregion
 }

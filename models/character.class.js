@@ -4,6 +4,12 @@ import { IntervalHub } from "./interval-hub.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { AudioHub } from "./audio-hub.class.js";
 
+/**
+ * Main player character of the game.
+ * Handles movement, animations, jumping and related sounds.
+ * @class
+ * @extends MovableObject
+ */
 export class Character extends MovableObject {
     // #region Attributes
     x = 100;
@@ -28,6 +34,12 @@ export class Character extends MovableObject {
     bottleAmount = 0;
     // #endregion
 
+    /**
+     * Creates a new Character instance and starts
+     * movement, gravity and animation intervals.
+     *
+     * @constructor
+     */
     constructor() {
         super();
         this.loadImage(ImageHub.character.idle[0]);
@@ -44,6 +56,13 @@ export class Character extends MovableObject {
     }
 
     // #region Methods
+
+    /**
+     * Handles character input and horizontal movement.
+     * Also updates the camera position and walking state.
+     *
+     * @returns {void}
+     */
     move = () => { 
         let isWalkingNow = false;
         
@@ -67,6 +86,13 @@ export class Character extends MovableObject {
         this.isWalking = isWalkingNow;
     }
 
+    /**
+     * Controls the current animation of the character
+     * based on its state (dead, hurt, jumping, walking, idle)
+     * and triggers walking audio when needed.
+     *
+     * @returns {void}
+     */
     animate = () => { 
         if(this.isDead){
             this.playAnimation(this.imagesDead);
@@ -86,6 +112,12 @@ export class Character extends MovableObject {
         this.playWalkingAudio();
     }
 
+    /**
+     * Checks if the character has been standing still
+     * long enough and switches between idle and long-idle animations.
+     *
+     * @returns {void}
+     */
     checkIfStandingAround = () => {
         if(this.standingSince === 0){ 
                 this.standingSince = new Date().getTime();
@@ -98,12 +130,24 @@ export class Character extends MovableObject {
             }
     }
 
+    /**
+     * Determines whether the character has been standing
+     * still for more than 10 seconds.
+     *
+     * @returns {boolean} True if the character has been standing for more than 10 seconds.
+     */
     isStandingAround(){
         let timePassed = new Date().getTime() - this.standingSince;
         timePassed = timePassed/1000;
         return timePassed > 10;
     }
 
+    /**
+     * Plays or stops the walking sound depending on
+     * the current state of the character.
+     *
+     * @returns {void}
+     */
     playWalkingAudio = () => {
         if (!this.isDead && !this.isHurt() && !this.isJumping &&
             this.isWalking) {
@@ -113,6 +157,11 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Makes the character jump and plays the jump sound.
+     *
+     * @returns {void}
+     */
     jump(){
         super.jump();
         AudioHub.playOne(AudioHub.CHARACTER_JUMP);

@@ -3,6 +3,13 @@ import { ImageHub } from "./image-hub.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * Throwable salsa bottle object.
+ * Handles projectile movement, rotation animation, explosion effect
+ * and marks itself for removal after the splash.
+ * @class
+ * @extends MovableObject
+ */
 export class ThrowableObject extends MovableObject {
     // #region Attributes
     x;
@@ -19,9 +26,19 @@ export class ThrowableObject extends MovableObject {
     imagesBottleSplash = ImageHub.salsaBottle.bottleSplash;
     hasExploded = false;
     markedForRemoval = false;
-    static thrownToRight = true;
+    thrownToRight = true;
     // #endregion
 
+    /**
+     * Creates a new throwable bottle at the given position,
+     * loads rotation and splash images and starts movement,
+     * gravity and animation intervals.
+     *
+     * @constructor
+     * @param {{_x: number, _y: number}} [options={}] - Configuration object.
+     * @param {number} options._x - Initial x-position of the bottle.
+     * @param {number} options._y - Initial y-position of the bottle.
+     */
     constructor({_x, _y} = {}) {
         super();
         this.x = _x;
@@ -36,9 +53,16 @@ export class ThrowableObject extends MovableObject {
     }
 
     // #region Methods
+
+    /**
+     * Moves the bottle horizontally while it is flying.
+     * Direction depends on the {@link ThrowableObject#thrownToRight} flag of this instance.
+     *
+     * @returns {void}
+     */
     throw = () => {
         if(!this.hasExploded){
-            if(ThrowableObject.thrownToRight){
+            if(this.thrownToRight){
                 this.x += 10;
             }else{
                 this.x -= 10;
@@ -46,6 +70,12 @@ export class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Plays the appropriate animation depending on the state:
+     * rotation while flying, splash after explosion.
+     *
+     * @returns {void}
+     */
     animate = () => { 
         if(this.hasExploded){
             this.playAnimation(this.imagesBottleSplash);
@@ -54,10 +84,27 @@ export class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Overrides the default ground check.
+     * For throwable objects we treat them as always above ground
+     * so gravity continues to act until manually stopped.
+     *
+     * @returns {boolean} Always true.
+     */
     isAboveGround(){ 
         return true;
     }
 
+    /**
+     * Triggers the explosion on a hit enemy:
+     * resizes and repositions the bottle to cover the enemy area,
+     * stops vertical movement, plays the hit sound,
+     * switches to splash animation and marks the object
+     * for removal after a short delay.
+     *
+     * @param {MovableObject} enemy - The enemy that was hit by the bottle.
+     * @returns {void}
+     */
     explode(enemy){
         this.width = enemy.width; 
         this.height = enemy.height; 

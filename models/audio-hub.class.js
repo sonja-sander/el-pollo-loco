@@ -1,5 +1,10 @@
 import { IntervalHub } from "./interval-hub.class.js";
 
+/**
+ * Central audio manager that controls all game sounds.
+ * Provides helper methods for playing and stopping sounds globally.
+ * @class
+ */
 export class AudioHub{
     // #region Attributes
     static BACKGROUND_MUSIC = new Audio("./audio/background-music/Fiesta-Pixelada.mp3");
@@ -34,16 +39,24 @@ export class AudioHub{
     // #endregion
 
     // #region Methods
+
+    /**
+     * Plays a single sound if audio is not muted.
+     * Waits until the sound is fully loaded before playing.
+     * @static
+     * @param {HTMLAudioElement} sound - The audio object that should be played.
+     * @returns {void}
+     */
     static playOne(sound) { 
-        if(AudioHub.IS_MUTED){ 
+        if (AudioHub.IS_MUTED){ 
             return;
         }
 
-        if(sound.readyState == 4){ 
+        if (sound.readyState == 4){ 
             sound.volume = 0.1;
             sound.play();
             return;
-        }else{
+        } else {
             const intervalId = IntervalHub.startInterval(() => {
                 if (sound.readyState == 4) { 
                     sound.volume = 0.1; 
@@ -54,12 +67,23 @@ export class AudioHub{
         }
     }
 
+    /**
+     * Stops all registered sounds by pausing each one.
+     * @static
+     * @returns {void}
+     */
     static stopAll() {
         AudioHub.ALL_SOUNDS.forEach(sound => {
             sound.pause(); 
         });
     }
 
+    /**
+     * Stops a single sound by pausing it.
+     * @static
+     * @param {HTMLAudioElement} sound - The audio object that should be paused.
+     * @returns {void}
+     */
     static stopOne(sound) {
         sound.pause(); 
     }

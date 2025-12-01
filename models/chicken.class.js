@@ -2,6 +2,12 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 
+/**
+ * Enemy chicken that walks from right to left across the level
+ * and can be animated as walking or dead.
+ * @class
+ * @extends MovableObject
+ */
 export class Chicken extends MovableObject {
     // #region Attributes
     x;
@@ -18,7 +24,14 @@ export class Chicken extends MovableObject {
     imagesDead = ImageHub.chicken.dead;
     // #endregion
 
-    constructor({_x} = {}) {
+    /**
+     * Creates a new chicken enemy at the given x-position
+     * and starts movement, animation and frame-update intervals.
+     *
+     * @constructor
+     * @param {number} _x - Initial x-position of the chicken.
+     */
+    constructor(_x) {
         super();
         this.x = _x;
         this.loadImage(ImageHub.chicken.walk[0]); 
@@ -30,6 +43,12 @@ export class Chicken extends MovableObject {
     }
 
     // #region Methods
+
+    /**
+     * Moves the chicken to the left as long as it is not dead.
+     *
+     * @returns {void}
+     */
     move = () => { 
         if(this.isDead){
             return;
@@ -38,6 +57,12 @@ export class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Updates the current animation of the chicken,
+     * switching between walk and dead animations.
+     *
+     * @returns {void}
+     */
     animate = () => { 
         if(this.isDead){
             this.playAnimation(this.imagesDead);

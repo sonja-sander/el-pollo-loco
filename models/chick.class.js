@@ -2,6 +2,12 @@ import { Chicken } from "./chicken.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { IntervalHub } from "./interval-hub.class.js";
 
+/**
+ * Small chick enemy with its own size, speed
+ * and walk/death animations.
+ * @class
+ * @extends Chicken
+ */
 export class Chick extends Chicken {
     // #region Attributes
     x;
@@ -18,7 +24,14 @@ export class Chick extends Chicken {
     imagesDead = ImageHub.chick.dead;
     // #endregion
 
-    constructor({_x} = {}) {
+    /**
+     * Creates a new chick enemy at the given x-position
+     * and loads all required animations.
+     *
+     * @constructor
+     * @param {number} _x - Initial x-position of the chick.
+     */
+    constructor(_x) {
         super();
         this.x = _x;
         this.loadImage(ImageHub.chick.walk[0]); 
@@ -26,7 +39,4 @@ export class Chick extends Chicken {
         this.loadImages(this.imagesDead); 
         IntervalHub.startInterval(this.getRealFrame, 1000/60);
     }
-
-    // #region Methods
-    // #endregion
 }
